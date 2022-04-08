@@ -33,8 +33,8 @@ putchar(digit3 + 48);
 
 if (digit1 + digit2 + digit3 != 24)
 {
-putchar(,);
-putchar( );
+putchar(',');
+putchar(' ');
 }
 }
 ++digit3;
@@ -43,7 +43,7 @@ putchar( );
 }
 ++digit1;
 }
-putchar(n);
+putchar('\n');
 
 return (0);
 }
