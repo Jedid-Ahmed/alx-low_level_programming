@@ -25,19 +25,19 @@ for (; j < 58; j++)
 {
 putchar(ifirst);
 putchar(i);
-putchar( );
+putchar(' ');
 putchar(jfirst);
 putchar(j);
 if (ifirst != 57 || jfirst != 57 || i != 56 || j != 57)
 {
-putchar(,);
-putchar( );
+putchar(',');
+putchar(' ');
 }
 }
 j = 48;
 }
 }
 }
-putchar(n);
+putchar('\n');
 return (0);
 }
