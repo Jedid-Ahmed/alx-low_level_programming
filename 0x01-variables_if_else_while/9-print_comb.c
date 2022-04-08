@@ -18,13 +18,13 @@ putchar(digit + 48);
 
 if (digit != 9)
 {
-putchar(,);
-putchar( );
+putchar(',');
+putchar(' ');
 }
 
 ++digit;
 }
-putchar(n);
+putchar('\n');
 
 return (0);
 }
