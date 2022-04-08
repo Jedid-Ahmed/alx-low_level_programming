@@ -21,7 +21,7 @@ if (digit == 57)
 digit += 39;
 ++digit;
 }
-putchar(n);
+putchar('\n');
 
 return (0);
 }
