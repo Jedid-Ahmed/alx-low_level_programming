@@ -1,5 +1,4 @@
-#include "holberton.h"
-
+#include "main.h"
 /**
  * puts2 - print character of a string
  *      in an array starting from the first
