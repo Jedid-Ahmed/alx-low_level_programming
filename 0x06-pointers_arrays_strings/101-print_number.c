@@ -5,9 +5,7 @@
  * @n: number to be printed
  * Return: Always 0 (Success)
  */
-void _putchar(char c){
-	putchar(c);
-}
+
 void print_number(int n)
 {
 	unsigned int num = n;
