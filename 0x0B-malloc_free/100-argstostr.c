@@ -1,38 +1,52 @@
 #include"main.h"
 #include <stdlib.h>
+
 /**
- * argstostr - is a function that concatenates args
- * @ac: is the number of arguments
- * @av: is the pointer to the arguments
- * Return: a pointer to a new string or NULL
+ * argstostr - Concatenates all the arguments of the program
+ *
+ * @ac: Argument total count
+ *
+ * @av: Pointer to arguments
+ *
+ * Retunr: Pointer to concatenated string (SUCCESS) or
+ * NULL if @ac == 0 or @av == NULL (FAILURE) or
+ * NULL if if insufficient memory was available (FAILURE)
  */
+
 char *argstostr(int ac, char **av)
 {
-	char *s;
-	int i, j, m = ac, l = 0;
+	int i, j;
+	int count = 0;
+	int t_count = 0;
+	char *result;
 
-	if (ac == 0 || !av)
-		return (NULL);
+	if (ac == 0 || av == NULL)
+		return ('\0');
+
 	for (i = 0; i < ac; i++)
 	{
-		for (j = 0; av[i][j]; j++)
-			m++;
+		for (j = 0; av[i][j] != '\0'; j++)
+			t_count++;
+
+		t_count++;
 	}
 
-	s = (char *) malloc((sizeof(char) * m) + 1);
-	if (s == NULL)
-		return (NULL);
+	result = malloc(sizeof(char) * t_count + 1);
+
+	if (result == NULL)
+	{
+		return ('\0');
+	}
 
 	for (i = 0; i < ac; i++)
 	{
-		for (j = 0; av[i][j]; j++)
+		for (j = 0; av[i][j] != '\0'; j++)
 		{
-			s[l++] = av[i][j];
+			result[count++] = av[i][j];
 		}
-		s[l++] = '\n';
+		result[count++] = '\n';
 	}
 
-	s[m] = '\0';
-
-	return (s);
+	result[t_count] = '\0';
+	return (result);
 }
