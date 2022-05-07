@@ -3,63 +3,6 @@
 #include <stdio.h>
 
 /**
- * error_exit - prints error with _putchar
- *              and exits with 98
- *
- * Return: Error 98 and exit(98)
-*/
-
-int error_exit(void)
-{
-	char *err;
-	int i;
-
-	err = "Error";
-	for (i = 0; err[i] != '\0'; i++)
-		_putchar(err[i]);
-	_putchar('\n');
-	exit(98);
-}
-
-/**
- * check_number - checks if string has only
- *                numbers
- *
- * @str: string to check
- *
- * Return: 0 is true 1 if false
-*/
-
-int check_number(char *str)
-{
-	while (*str != '\0')
-	{
-		if (*str < '0' || *str > '9')
-			return (1);
-		str++;
-	}
-	return (0);
-}
-
-/**
- * _length - get the length of strings
- *
- * @str: string to get length of
- *
- * Return: length of string
-*/
-
-int _length(char *str)
-{
-	int i = 0;
-
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-
-/**
  * _memset - fills memory with a constant byte
  *
  * @s: input pointer that represents memory block
@@ -69,9 +12,11 @@ int _length(char *str)
  *
  * Return: pointer to the filled memory area
 */
+
 char *_memset(char *s, char b, unsigned int n)
 {
 	unsigned int i = 0;
+
 	while (i < n)
 	{
 		s[i] = b;
@@ -79,6 +24,7 @@ char *_memset(char *s, char b, unsigned int n)
 	}
 	return (s);
 }
+
 /**
  * _calloc - function that allocates memory
  *           for an array using memset
@@ -88,17 +34,22 @@ char *_memset(char *s, char b, unsigned int n)
  *
  * Return: pointer to new allocated memory
 */
+
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
 	char *ptr;
+
 	if (nmemb == 0 || size == 0)
 		return (NULL);
 	ptr = malloc(nmemb * size);
 	if (ptr == NULL)
 		return (NULL);
 	_memset(ptr, 0, nmemb * size);
+
 	return (ptr);
 }
+
+
 /**
  * multiply - initialize array with 0 byte
  *
@@ -107,6 +58,7 @@ void *_calloc(unsigned int nmemb, unsigned int size)
  *
  * Return: nothing
 */
+
 void multiply(char *s1, char *s2)
 {
 	int i, l1, l2, total_l, f_digit, s_digit, res = 0, tmp;
@@ -144,13 +96,9 @@ void multiply(char *s1, char *s2)
 		total_l--;
 	}
 
-
 	for (i = 0; i < total_l; i++)
 		printf("%i", ptr[i]);
-		/*_putchar(ptr[i]);*/
-
 	printf("\n");
-	/*_putchar('\n');*/
 	free(temp);
 }
 
@@ -166,12 +114,15 @@ void multiply(char *s1, char *s2)
  *
  * Return: 0 on success 98 on faliure
 */
+
 int main(int argc, char *argv[])
 {
 	char *n1 = argv[1];
 	char *n2 = argv[2];
+
 	if (argc != 3 || check_number(n1) || check_number(n2))
 		error_exit();
+
 	if (*n1 == '0' || *n2 == '0')
 	{
 		_putchar('0');
