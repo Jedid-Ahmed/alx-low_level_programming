@@ -156,9 +156,6 @@ void populateResult(char *dest, char *n1, int n1_len, char *n2, int n2_len)
 			i = -1;
 	}
 
-	/*free(dest);
-	free(multiplicand);
-	free(multiplier);*/
 }
 
 /**
