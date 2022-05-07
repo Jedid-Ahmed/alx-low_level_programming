@@ -1,181 +1,134 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
-
-void populateResult(char *dest, char *n1, int n1_len, char *n2, int n2_len);
-int getLengthOfNum(char *str);
-void print_result(char *src, int length);
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * main - entry point, multiplies two numbers
+ * _memset - fills memory with a constant byte
  *
- * @argc: integer, length of @argv
+ * @s: input pointer that represents memory block
+ *     to fill
+ * @b: characters to fill/set
+ * @n: number of bytes to be filled
  *
- * @argv: one-dimensional array of strings, arguments of this program
+ * Return: pointer to the filled memory area
+*/
+
+char *_memset(char *s, char b, unsigned int n)
+{
+	unsigned int i = 0;
+
+	while (i < n)
+	{
+		s[i] = b;
+		i++;
+	}
+	return (s);
+}
+
+/**
+ * _calloc - function that allocates memory
+ *           for an array using memset
  *
- * Return: 0, success
- */
+ * @nmemb: size of array
+ * @size: size of each element
+ *
+ * Return: pointer to new allocated memory
+*/
+
+void *_calloc(unsigned int nmemb, unsigned int size)
+{
+	char *ptr;
+
+	if (nmemb == 0 || size == 0)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
+		return (NULL);
+	_memset(ptr, 0, nmemb * size);
+
+	return (ptr);
+}
+
+
+/**
+ * multiply - initialize array with 0 byte
+ *
+ * @s1: string 1
+ * @s2: string 2
+ *
+ * Return: nothing
+*/
+
+void multiply(char *s1, char *s2)
+{
+	int i, l1, l2, total_l, f_digit, s_digit, res = 0, tmp;
+	char *ptr;
+	void *temp;
+
+	l1 = _length(s1);
+	l2 = _length(s2);
+	tmp = l2;
+	total_l = l1 + l2;
+	ptr = _calloc(sizeof(int), total_l);
+
+	/* store our pointer address to free later */
+	temp = ptr;
+
+	for (l1--; l1 >= 0; l1--)
+	{
+		f_digit = s1[l1] - '0';
+		res = 0;
+		l2 = tmp;
+		for (l2--; l2 >= 0; l2--)
+		{
+			s_digit = s2[l2] - '0';
+			res += ptr[l2 + l1 + 1] + (f_digit * s_digit);
+			ptr[l1 + l2 + 1] = res % 10;
+			res /= 10;
+		}
+		if (res)
+			ptr[l1 + l2 + 1] = res % 10;
+	}
+
+	while (*ptr == 0)
+	{
+		ptr++;
+		total_l--;
+	}
+
+	for (i = 0; i < total_l; i++)
+		printf("%i", ptr[i]);
+	printf("\n");
+	free(temp);
+}
+
+
+/**
+ * main - Entry point
+ *
+ * Description: a program that multiplies
+ *            two positive numbers
+ *
+ * @argc: number of arguments
+ * @argv: arguments array
+ *
+ * Return: 0 on success 98 on faliure
+*/
 
 int main(int argc, char *argv[])
 {
-	int num1_length, num2_length;
-	char *result;
+	char *n1 = argv[1];
+	char *n2 = argv[2];
 
-	if (argc != 3)
+	if (argc != 3 || check_number(n1) || check_number(n2))
+		error_exit();
+
+	if (*n1 == '0' || *n2 == '0')
 	{
-		printf("Error\n");
-		exit(98);
-	}
-
-	num1_length = getLengthOfNum(argv[1]);
-
-	if (!num1_length)
-	{
-		printf("Error\n");
-		exit(98);
-	}
-
-	num2_length = getLengthOfNum(argv[2]);
-
-	if (!num2_length)
-	{
-		printf("Error\n");
-		exit(98);
-	}
-
-	result = malloc(num1_length + num2_length);
-
-	if (!result)
-		return (1);
-
-	populateResult(result, argv[1], num1_length, argv[2], num2_length);
-
-	print_result(result, num1_length + num2_length);
-	printf("\n");
-	free(result);
-
-	return (0);
-}
-
-/**
- * getLengthOfNum - length of numbers in a string
- *
- * @str: pointer to string of numbers
- *
- * Return: integer (SUCCESS) or
- * NULL, if string includes char
- */
-
-int getLengthOfNum(char *str)
-{
-	int i = 0;
-
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			i++;
-		else
-			return ('\0');
-
-	}
-
-	return (i);
-}
-
-/**
- * populateResult - multiplies two numbers stored as string
- * and stores result in @dest
- *
- * @dest: pointer to where @num1 * @num2 should be stored
- *
- * @n1: positive number stored as string in an array
- *
- * @n2: positive number stored as string in an array
- *
- * @n1_len: length of @n1
- *
- * @n2_len: length of @n2
- */
-
-void populateResult(char *dest, char *n1, int n1_len, char *n2, int n2_len)
-{
-	int i, j, k, temp_value, non_carry_value;
-	int carry_value = 0;
-	char *multiplicand, *multiplier;
-
-	if (n1_len > n2_len)
-	{
-		i = n1_len - 1;
-		j = n2_len - 1;
-		multiplicand = n1;
-		multiplier = n2;
+		_putchar('0');
+		_putchar('\n');
 	}
 	else
-	{
-		i = n2_len - 1;
-		j = n1_len - 1;
-		multiplicand = n2;
-		multiplier = n1;
-	}
-
-	while (i >= 0)
-	{
-		k = i;
-
-		while (k >= 0)
-		{
-			temp_value = ((multiplicand[k] - '0') * (multiplier[j] - '0'));
-			temp_value += carry_value;
-
-			if (j + 1 <= n2_len - 1 && dest[k + j + 1] >= '0' && dest[k + j + 1] <= '9')
-				temp_value += dest[k + j + 1] - '0';
-
-			if (temp_value < 10)
-			{
-				non_carry_value = temp_value;
-				carry_value = 0;
-			}
-			else
-			{
-				non_carry_value = temp_value % 10;
-				carry_value = temp_value / 10;
-			}
-
-			dest[k + j + 1] = non_carry_value + '0';
-			k--;
-		}
-
-		if (carry_value)
-			dest[k + j + 1] = carry_value + '0';
-
-		carry_value = 0;
-
-		if (j > 0)
-			j--;
-		else
-			i = -1;
-	}
-
-	free(dest);
-	free(multiplicand);
-	free(multiplier);
-}
-
-/**
- * print_result - prints numbers stored as string in a memory location
- *
- * @src: pointer to memory that stores numbers as strings
- *
- * @length: length of @src
- */
-
-void print_result(char *src, int length)
-{
-	int i;
-
-	for (i = 0; i < length; i++)
-	{
-		if (src[i] >= '0' && src[i] <= '9')
-		printf("%c", src[i]);
-	}
+		multiply(n1, n2);
+	return (0);
 }
