@@ -99,6 +99,7 @@ void multiply(char *s1, char *s2)
 	for (i = 0; i < total_l; i++)
 		printf("%i", ptr[i]);
 	printf("\n");
+	printf("\n");
 	free(temp);
 }
 
