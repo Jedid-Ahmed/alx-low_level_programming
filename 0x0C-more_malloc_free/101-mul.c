@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	int num1_length, num2_length;
 	char *result;
 
-	if (argc == 3)
+	if (argc != 3)
 	{
 		printf("Error\n");
 		exit(98);
@@ -156,9 +156,9 @@ void populateResult(char *dest, char *n1, int n1_len, char *n2, int n2_len)
 			i = -1;
 	}
 
-	free(dest);
+	/*free(dest);
 	free(multiplicand);
-	free(multiplier);
+	free(multiplier);*/
 }
 
 /**

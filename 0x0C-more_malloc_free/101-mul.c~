@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
 	if (argc == 3)
 	{
-		printf("Error1\n");
+		printf("Error\n");
 		exit(98);
 	}
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
 	if (!num1_length)
 	{
-		printf("Error2\n");
+		printf("Error\n");
 		exit(98);
 	}
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
 	if (!num2_length)
 	{
-		printf("Error3\n");
+		printf("Error\n");
 		exit(98);
 	}
 
