@@ -11,7 +11,7 @@
 * The key is unique in the HashTable
 * @value: The value corresponding to a key
 * @next: A pointer to the next node of the List
-*/ 
+*/
 typedef struct hash_node_s
 {
 	char *key;
